@@ -15,27 +15,6 @@ import LandingPage from "./components/LandingPage";
 import Signin from "./components/Signin";
 import Login from "./components/Login";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "/",
-        element: <LandingPage />,
-      },
-      {
-        path: "/signin",
-        element: <Signin />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-    ],
-  },
-]);
-
 function App() {
   return (
     <Provider store={appStore}>
@@ -44,8 +23,8 @@ function App() {
         <div className=" min-h-screen mt-16">
           <Routes>
             <Route path="/" element={<GenerateMap />} />
-            <Route path="/signup" element={<Signin />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/signup" element={<Signin />} />
+            <Route path="/login" element={<Login />} /> */}
             <Route path="/projectmap" element={<ProjectMap />} />
 
             {/* Define more routes here if needed */}

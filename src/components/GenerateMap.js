@@ -6,12 +6,22 @@ import { setMap } from "../utils/mapSlice";
 
 const GenerateMap = () => {
   const [ideaStatement, setIdeaStatement] = useState("");
+  const [ideaDescription, setIdeaDescription] = useState("");
   const [gptResult, setGptResult] = useState("");
+  const [selectedOption, setSelectedOption] = useState("beginner");
+  const [stacks, setStacks] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const options = ["Begineer", "Intermediate", "Advanced"];
+
   const handleGptQuery = async () => {
-    const gptQuery = `Given the following project idea: ${ideaStatement}, generate a detailed roadmap for building the project. Please break down the roadmap into specific tasks and group them under appropriate headings such as "Backend," "Frontend," "Deployment," etc. Each task should be clearly defined and actionable. Your response should include a structured list of tasks with headings and checkboxes. Use the format:
+    const gptQuery = `Given the following 
+    1.project idea: ${ideaStatement}
+    2.idea description: ${ideaDescription}
+    3.Tech stack: ${stacks}
+    4.Level: ${selectedOption},
+     generate a detailed roadmap for building the project. Please break down the roadmap into specific tasks and group them under appropriate headings such as "Backend," "Frontend," "Deployment," etc. Each task should be clearly defined and actionable. Your response should include a structured list of tasks with headings and checkboxes. Use the format:
   
     # [Heading 1]
       - [Task 1]
@@ -21,18 +31,7 @@ const GenerateMap = () => {
       - [Task 2]
 
     note: only use "-" and "#" to format the response.
-    
-    For example:
-      
-    # Backend
-      - Set up database schema
-      - Implement user authentication
-    # Frontend
-      - Design user interface mockups
-      - Develop landing page layout
-    # Deployment
-      - Configure CI/CD pipeline
-      - Deploy application to cloud platform`;
+  `;
 
     const result = await openai.chat.completions.create({
       messages: [{ role: "user", content: gptQuery }],
@@ -75,7 +74,7 @@ const GenerateMap = () => {
   }, [gptResult]);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center min-h-screen">
       <h1 className="text-4xl p-4  font-bold text-blue-900">
         Generate a Structured RoadMap for your Project
       </h1>
@@ -86,6 +85,48 @@ const GenerateMap = () => {
         placeholder="Enter your Stunning idea"
         value={ideaStatement}
       />
+      <input
+        onChange={(e) => setIdeaDescription(e.target.value)}
+        className="text-center  m-2 w-1/2 px-4 py-3 bg-gray-200 rounded-lg mx-auto"
+        placeholder="Enter your idea description (optional)"
+        value={ideaDescription}
+      />
+
+      <div className="flex m-4">
+        <div>
+          <label className="text-gray-700 text-lg font-bold">Tech Stack</label>
+          <input
+            placeholder="React, Redux, ..."
+            type="text"
+            className="m-2 p-2 bg-gray-200 rounded-lg "
+            value={stacks}
+            onChange={(e) => {
+              setStacks(e.target.value);
+            }}
+          />
+        </div>
+        <div className="flex items-center">
+          <label className="text-gray-700 text-lg font-bold px-4">Level</label>
+          <select
+            value={selectedOption}
+            onChange={(e) => {
+              setSelectedOption(e.target.value);
+            }}
+            className="p-2 border rounded-md"
+          >
+            {options.map((option) => (
+              <option
+                className="cursor-pointer"
+                key={option}
+                value={option.toLowerCase()}
+              >
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
       <button
         onClick={handleGptQuery}
         className="px-4 py-3 bg-blue-500 text-white hover:bg-blue-800 shadow-lg rounded-xl"
