@@ -64,7 +64,7 @@ const ProjectMap = () => {
     <div>
       {Object.entries(projectmap).map(([heading, checkpoints]) => (
         <div key={heading} className="p-4 m-4">
-          <h2 className="text-2xl m-4">{heading}</h2>
+          <h2 className="text-2xl m-4 font-bold text-blue-800">{heading}</h2>
           <ul>
             {checkpoints.map((checkpoint, index) => (
               <li key={index} className="border border-b-gray-200">

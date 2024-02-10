@@ -6,7 +6,6 @@ import { setMap } from "../utils/mapSlice";
 
 const GenerateMap = () => {
   const [ideaStatement, setIdeaStatement] = useState("");
-  const [checkboxData, setCheckboxData] = useState([]);
   const [gptResult, setGptResult] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
