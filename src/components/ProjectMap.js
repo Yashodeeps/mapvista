@@ -56,6 +56,19 @@ const ProjectMap = () => {
     setTaskStates(updatedTaskStates);
   };
 
+  //saving project to database
+
+  // const handleProjectSave = async () => {
+  //   const response = await axios.post(
+  //     "http://localhost:4000/api/v1/projectmap",
+  //     {
+  //       projectmap,
+  //     }
+  //   );
+
+  //   console.log(response);
+  // };
+
   // Check if projectmap is null
   if (!projectmap) {
     return <div>Loading...</div>; // or any other appropriate UI for loading state
@@ -65,9 +78,14 @@ const ProjectMap = () => {
     <div className="flex min-h-screen py-4">
       <SideSection />
       <div>
-        <button className="border border-green-600 px-4 py-3 mx-8 my-4 rounded-xl hover:shadow-md">
-          Save the Project
-        </button>
+        <div>
+          <input placeholder="Enter Project name" />
+          <button
+            /**onClick={handleProjectSave} */ className="border border-green-600 px-4 py-3 mx-8 my-4 rounded-xl hover:shadow-md"
+          >
+            Save the Project
+          </button>
+        </div>
         {Object.entries(projectmap).map(([heading, checkpoints]) => (
           <div key={heading} className="p-4 m-4">
             <h2 className="text-2xl m-4 font-bold text-blue-800">{heading}</h2>

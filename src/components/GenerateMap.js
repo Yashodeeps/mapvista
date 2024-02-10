@@ -3,6 +3,7 @@ import openai from "../utils/openai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMap } from "../utils/mapSlice";
+import Shimmer from "./Shimmer";
 
 const GenerateMap = () => {
   const [ideaStatement, setIdeaStatement] = useState("");
@@ -10,12 +11,16 @@ const GenerateMap = () => {
   const [gptResult, setGptResult] = useState("");
   const [selectedOption, setSelectedOption] = useState("beginner");
   const [stacks, setStacks] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const options = ["Begineer", "Intermediate", "Advanced"];
 
   const handleGptQuery = async () => {
+    setLoading(true); // Set loading state to true
+
     const gptQuery = `Given the following 
     1.project idea: ${ideaStatement}
     2.idea description: ${ideaDescription}
@@ -39,6 +44,7 @@ const GenerateMap = () => {
     });
     setGptResult(result.choices[0].message.content);
     console.log(result.choices[0].message.content);
+    setLoading(false); // Set loading state to false after getting the response
   };
 
   useEffect(() => {
@@ -66,12 +72,17 @@ const GenerateMap = () => {
         console.log(groupedTasks);
         // setCheckboxData(groupedTasks);
         dispatch(setMap(groupedTasks));
+
         navigate("/projectmap");
       } catch (error) {
         console.error("Error parsing GPT-3 response:", error);
       }
     }
   }, [gptResult]);
+
+  if (loading) {
+    return <Shimmer />;
+  }
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
