@@ -60,9 +60,10 @@ const GenerateMap = () => {
 
           const [heading, ...tasksUnderHeading] = splitTask;
           const formattedHeading = heading.trim();
-          groupedTasks[formattedHeading] = tasksUnderHeading.map((task) =>
-            task.trim()
-          );
+          groupedTasks[formattedHeading] = tasksUnderHeading.map((task) => ({
+            name: task.trim(),
+            checked: false,
+          }));
         });
         console.log(groupedTasks);
         // setCheckboxData(groupedTasks);
