@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const [username, setUsername] = useState("");
   const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   console.log(username, nickName, email, password);
 
@@ -136,6 +138,7 @@ const Signin = () => {
                     );
 
                     console.log(response);
+                    navigate("/");
                   }}
                   type="button"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
