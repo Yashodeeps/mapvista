@@ -78,8 +78,11 @@ const ProjectMap = () => {
     <div className="flex min-h-screen py-4">
       <SideSection />
       <div>
-        <div>
-          <input placeholder="Enter Project name" />
+        <div className="mx-8  ">
+          <input
+            className="px-4 py-3 rounded-tr-xl bg-gray-200"
+            placeholder="Enter Project name"
+          />
           <button
             /**onClick={handleProjectSave} */ className="border border-green-600 px-4 py-3 mx-8 my-4 rounded-xl hover:shadow-md"
           >

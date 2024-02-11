@@ -8,8 +8,14 @@ const title = (
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 p-6  shadow-lg bg-white">
-      {title}
+    <div className="flex justify-between">
+      <div className="fixed top-0 left-0 right-0 p-6  shadow-lg bg-white">
+        {title}
+      </div>
+      <ul className=" gap-4">
+        <li className="text-lg font-semibold">Home</li>
+        <li>Login</li>
+      </ul>
     </div>
   );
 };
